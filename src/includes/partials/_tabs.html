@@ -1,0 +1,50 @@
+<div data-view="Tabs">
+    <ul class="tabList" role="tablist">
+        <li role="presentation">
+            <button class="tabList-trigger active" 
+                    id="billTrigger" 
+                    data-tab-trigger="billMurray" 
+                    role="tab" 
+                    aria-controls="billContent" 
+                    aria-selected="true">
+
+                    Bill Murray
+            </button>
+        </li>
+
+        <li role="presentation">
+            <button class="tabList-trigger"
+                    id="nickTrigger" 
+                    data-tab-trigger="nickCage" 
+                    role="tab" 
+                    aria-controls="nickContent" 
+                    aria-selected="false">
+
+                    Nicholas Cage
+            </button> 
+        </li>
+    </ul><!-- end .tabList -->
+
+    <div class="tabPanels">
+        <div class="tabPanels-panel active" 
+             id="billContent" 
+             data-tab-content="billMurray" 
+             role="tabpanel" 
+             aria-labelledby="billTrigger" 
+             aria-hidden="false">
+
+            <img src="http://fillmurray.com/200/300" alt="">
+        </div>
+
+        <div class="tabPanels-panel" 
+            id="nickContent" 
+            data-tab-content="nickCage" 
+            role="tabpanel" 
+            aria-labelledby="nickTrigger" 
+            aria-hidden="true">
+
+            <img src="http://placecage.com/c/200/300" alt="">
+        </div>
+    </div><!-- end tabPanels -->
+</div><!-- end .tabs -->
+

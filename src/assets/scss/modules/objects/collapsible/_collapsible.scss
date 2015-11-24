@@ -1,0 +1,10 @@
+
+.collapsible {}
+
+.collapsible-panel {
+    overflow: hidden;
+}
+
+.collapsible-panel.collapsed {
+    height: 0;
+}

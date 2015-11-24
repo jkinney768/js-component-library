@@ -1,0 +1,14 @@
+/* ---------------------------------------------------------------------
+ Tab Panels
+------------------------------------------------------------------------ */
+
+.tabPanels {}
+
+.tabPanels-panel {
+    padding-top: 18px;
+    display: none;
+}
+
+.tabPanels-panel.active {
+    display: block;
+}

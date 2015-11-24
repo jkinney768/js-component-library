@@ -1,0 +1,21 @@
+{
+  "bravo-js-configurator": {
+    "title": "JS Component Library",
+    "name": "js-component-library",
+    "markup": "MarkupIncludes",
+    "markupFeatures": [],
+    "styles": "StylesSass",
+    "stylesFeatures": [],
+    "scripts": "ScriptsRequireJs",
+    "scriptsFeatures": [],
+    "framework": "FrameworkVanilla",
+    "frameworkFeatures": [
+      "demo",
+      "jQuery"
+    ],
+    "generated": {
+      "version": "3.0.0",
+      "timestamp": "Thu Nov 19 2015 10:13:24 GMT-0600 (CST)"
+    }
+  }
+}
