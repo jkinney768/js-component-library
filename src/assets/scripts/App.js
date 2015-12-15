@@ -4,6 +4,7 @@ define(function(require, exports, module) { // jshint ignore:line
     var $ = require('jquery');
     var TabView = require('./views/TabView');
     var CollapsibleView = require('./views/CollapsibleView');
+    var SelectMenuView = require('./views/SelectMenuView');
 
     /**
      * Initial application setup. Runs once upon every page load.
@@ -32,6 +33,8 @@ define(function(require, exports, module) { // jshint ignore:line
             triggerEvent: 'click',
             singleOpen: false
         });
+
+        this.selectMenuView = new SelectMenuView($('[data-view=SelectMenuView]'));
     };
 
     return App;
