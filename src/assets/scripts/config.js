@@ -36,7 +36,8 @@ require.config({
         requirejs: '../vendor/requirejs/require',
         jquery: '../vendor/jquery/jquery',
         'nerdery-function-bind': '../vendor/nerdery-function-bind/index',
-        velocity: '../vendor/velocity/velocity'
+        velocity: '../vendor/velocity/velocity',
+        'velocity.ui': '../vendor/velocity/velocity.ui'
     },
     shim: {
         velocity: {

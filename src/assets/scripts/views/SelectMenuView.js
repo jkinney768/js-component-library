@@ -14,14 +14,23 @@ define(function(require, exports, module) { // jshint ignore:line
 
         SelectMenuView.DATA_ATTRIBUTE = {
             SELECT: 'select',
-            FAUX_SELECT: 'fauxSelect'
+            FAUX_SELECT: 'fauxSelect',
+            ACTIVE_SELECTION: 'fauxSelect-selected',
+            OPTIONS: 'fauxSelect-options'
+        };
+
+        SelectMenuView.STATES = {
+            HIDDEN: 'isHidden',
+            VISIBLE: 'isVisible',
+            EXPANDED: 'isExpanded'
         };
 
         this.$element = $element;
         this.$menu = $element.find('[data-role=' + SelectMenuView.DATA_ATTRIBUTE.SELECT + ']');
         this.$menuOptions = $element.find('[data-role=' + SelectMenuView.DATA_ATTRIBUTE.SELECT + '] > option');
         this.$fauxMenu = $element.find('[data-role=' + SelectMenuView.DATA_ATTRIBUTE.FAUX_SELECT + ']');
-
+        this.$fauxMenuSelection = $element.find('[data-role=' + SelectMenuView.DATA_ATTRIBUTE.ACTIVE_SELECTION + ']');
+        this.$fauxMenuOptions = $element.find('[data-role=' + SelectMenuView.DATA_ATTRIBUTE.OPTIONS + ']');
 
         if (!$element.length) {
             return;
@@ -44,6 +53,7 @@ define(function(require, exports, module) { // jshint ignore:line
 
     proto.setupHandlers = function () {
         this.handleOptionClick = this.handleOptionClick.bind(this);
+        this.handleActiveSelectionClick = this.handleActiveSelectionClick.bind(this);
 
         return this;
     };
@@ -55,6 +65,7 @@ define(function(require, exports, module) { // jshint ignore:line
 
         this.isEnabled = true;
 
+        this.$fauxMenuSelection.on('click', this.handleActiveSelectionClick);
         this.$fauxMenuOption.on('click', this.handleOptionClick);
 
         return this;
@@ -62,50 +73,17 @@ define(function(require, exports, module) { // jshint ignore:line
 
 
     proto.layout = function () {
-            var numberOfOptions = this.$menu.children('option').length;
-          
-            this.$fauxMenu.prepend('<div class="select-active"></div>');
-            this.$fauxMenu.append('<ul class="select-options" role="combobox"></ul>');
+        var numberOfOptions = this.$menu.children('option').length;
 
-            var $activeSelect = this.$fauxMenu.next('div.select-active');
-            $activeSelect.text($(this).children('option').eq(0).text());
-          
-            var $list = $('<ul />', {
-                'class': 'select-options'
-            }).insertAfter($activeSelect);
-          
-            this.$menuOptions.each(function(){
-                $('<li />', {
-                    'class': 'select-options-item',
-                    text: $(this).text(),
-                    id: $(this).val(),
-                    role: 'option'
-                }).appendTo($('.select-options'));
-            });
+        this.$menuOptions.each(function(){
+            $('<li />', {
+                'class': 'select-options-item',
+                text: $(this).text(),
+                id: $(this).val(),
+                role: 'option'
+            }).appendTo($('.select-options'));
+        });
 
-
-           
-            // var $listItems = $list.children('li');
-          
-            // $activeSelect.click(function(e) {
-            //     e.stopPropagation();
-            //     $('div.select-active.active').each(function(){
-            //         $(this).removeClass('active').next('ul.select-options').hide();
-            //     });
-            //     $(this).toggleClass('active').next('ul.select-options').toggle();
-            // });
-          
-            // $listItems.click(function(e) {
-            //     e.stopPropagation();
-            //     $activeSelect.text($(this).text()).removeClass('active');
-            //     $this.val($(this).attr('rel'));
-            //     $list.hide();
-            // });
-          
-            // $(document).click(function() {
-            //     $activeSelect.removeClass('active');
-            //     $list.hide();
-            // });
         return this;
     };
 
@@ -115,14 +93,21 @@ define(function(require, exports, module) { // jshint ignore:line
         return this;
     };
 
-    proto.handleOptionClick = function (event) {
-        var activeOption = event.currentTarget.id;
-
-        this.setActiveOption(activeOption);
+    proto.handleActiveSelectionClick = function () {
+        this.toggleOptionList();
     };
 
+    proto.handleOptionClick = function (event) {
+        var activeOption = event.currentTarget.id;
+        var activeOptionText = $(event.currentTarget).text();
 
-    proto.setActiveOption = function (activeOption) {
+        this.setActiveOption(activeOption, activeOptionText);
+        this.resetActiveState();
+    };
+
+    proto.setActiveOption = function (activeOption, activeOptionText) {
+        this.$fauxMenuSelection.html(activeOptionText);
+
         // Sets real select menu value
         this.$menuOptions.prop('selected', false);
 
@@ -133,6 +118,14 @@ define(function(require, exports, module) { // jshint ignore:line
         });
     };
 
+    proto.toggleOptionList = function () {
+        this.$fauxMenuOptions.toggleClass(SelectMenuView.STATES.HIDDEN);
+        this.$fauxMenuSelection.toggleClass(SelectMenuView.STATES.EXPANDED);
+    };
+
+    proto.resetActiveState = function () {
+        this.$fauxMenuSelection.removeClass(SelectMenuView.STATES.EXPANDED);
+    };
 
     return SelectMenuView;
 });
