@@ -24,7 +24,10 @@ include "includes/header.html"
                     <option value="other">Other</option>
                 </select>
 
-                <div data-role="fauxSelect" class="select"></div>
+                <div data-role="fauxSelect" class="select">
+                    <div class="select-active" data-role="fauxSelect-selected">Select Option</div>
+                    <ul class="select-options isHidden" data-role="fauxSelect-options" role="combobox"></ul>
+                </div>
             </div>
         </div>
         </div><!-- end .tier -->
